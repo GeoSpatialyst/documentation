@@ -1,0 +1,7 @@
+{
+    "restructuredtext.builtDocumentationPath" : "${workspaceFolder}\\docs\_build\html",
+    "restructuredtext.confPath"               : "${workspaceFolder}\\docs",
+    "restructuredtext.updateOnTextChanged"    : "true",
+    "restructuredtext.updateDelay"            : 300,
+    "restructuredtext.sphinxBuildPath"        : null
+}

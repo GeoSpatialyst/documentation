@@ -1,0 +1,9 @@
+2021
+==============================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: These are some highlight projects I have done in 2021.
+
+   2021/paddy-area-classification
+   2021/indonesia-project

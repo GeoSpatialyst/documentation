@@ -1,0 +1,8 @@
+2022
+==============================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: These are some highlight projects I have done in 2022.
+
+   2022/kano-and-yoshii-river
