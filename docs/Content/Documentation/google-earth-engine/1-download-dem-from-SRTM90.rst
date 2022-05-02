@@ -43,7 +43,7 @@ The SRTM DEM dataset can be visualized using the code snippet below:
     Map.addLayer(slope, {min: 0, max: 60}, 'slope');
 
 .. figure:: img/STRM90_dataset.png
-    :width: 1200px
+    :width: 1000px
     :align: center
 
 **2. Download DEM to Google Drive**
@@ -62,7 +62,7 @@ The purpose is to download DEM of Cambodia and export it to google drive in ``Ge
     Map.addLayer(roi, {color:'black'}, 'Cambodia');
 
 .. figure:: img/cambodia_bound.png
-    :width: 1200px
+    :width: 1000px
     :align: center
 
 .. code-block:: JavaScript
@@ -80,7 +80,7 @@ The purpose is to download DEM of Cambodia and export it to google drive in ``Ge
     Map.addLayer(cambodia_dem,  {min: 0, max: 50}, 'elevation');
 
 .. figure:: img/cambodia_dem.png
-    :width: 1200px
+    :width: 1000px
     :align: center
 
 By running below snippet, the Tasks tab will appear a ``Run`` button. After clicking that button, the elevation image of Cambodia will be stored in your google drive. 

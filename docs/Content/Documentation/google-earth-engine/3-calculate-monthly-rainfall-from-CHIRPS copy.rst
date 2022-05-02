@@ -51,7 +51,7 @@ CHIRPS Daily dataset can be visualized using the code snippet below:
 
 
 .. figure:: img/CHIRPS-image.png
-    :width: 1200px
+    :width: 100%
     :align: center
 
 **2. Visualize precipitation in Cambodia**
@@ -79,7 +79,7 @@ The feature boundary of Cambodia is based on the international boundary dataset 
     Map.addLayer(temp, temperatureVis_cambo, 'Temperature');
 
 .. figure:: img/rainfall-cambodia.png
-    :width: 1200px
+    :width: 100%
     :align: center
 
 **3. Extract all precipitation images within given year**
@@ -116,7 +116,7 @@ To calculate mean precipitation of each month, we must set a target year and the
     print(monthlyPrecip)
 
 .. figure:: img/list_img_prec.png
-    :width: 1200px
+    :width: 100%
     :align: center
 
 **4. Calculate monthly mean precipitation of Cambodia**
@@ -152,7 +152,7 @@ After extracting images of given year, we can see that there are in total of 36 
 
 
 .. figure:: img/monthly-precp-chart.png
-    :width: 1200px
+    :width: 100%
     :align: center
 
 

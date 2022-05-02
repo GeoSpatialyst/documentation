@@ -52,7 +52,7 @@ ECMWF Climate Reanalysis dataset can be visualized using the code snippet below:
     };
 
 .. figure:: img/world-temp-image.png
-    :width: 1200px
+    :width: 1000px
     :align: center
 
 **2. Visualize temperature in Cambodia**
@@ -88,7 +88,7 @@ The feature boundary of Cambodia is based on the international boundary dataset 
     Map.addLayer(temp, temperatureVis_cambo, 'Temperature');
 
 .. figure:: img/cambodia-temp.png
-    :width: 1200px
+    :width: 1000px
     :align: center
 
 **3. Extract all temperature images within given year**
@@ -126,7 +126,7 @@ To calculate mean temperature of each month, we must set a target year and then 
     print(monthlyTemp)
 
 .. figure:: img/list_img_temp.png
-    :width: 1200px
+    :width: 1000px
     :align: center
 
 **4. Calculate monthly mean temperature of Cambodia**
@@ -153,7 +153,7 @@ After extracting images of given year, we can see that there are in total of 36 
     print(chartMonthly);
 
 .. figure:: img/monthly-temp-chart.png
-    :width: 1200px
+    :width: 1000px
     :align: center
 
 
