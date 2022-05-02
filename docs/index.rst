@@ -1,13 +1,16 @@
+**Geospatialyst Documentation**
+---------------------------------
+
 .. image:: img/men-vuthy-cover.png
     :width: 100%
     :align: center
     
-**Geospatialyst Documentation**
+
+Content
 ---------------------------------
 
 .. toctree::
    :maxdepth: 2
-   :hidden:
    :caption: Projects
 
    Content/Project/2020
@@ -16,7 +19,6 @@
 
 .. toctree::
    :maxdepth: 2
-   :hidden:
    :caption: Documentations
 
    Content/Documentation/lidar
@@ -27,12 +29,12 @@
 
 .. toctree::
    :maxdepth: 2
-   :hidden:
    :caption: Lessons
 
    Content/Lesson/geo-python-course
 
-
 .. important::
    - Email: geospatialyst@gmail.com
    - Facebook: `@GeospatialystCambodia <https://www.facebook.com/GeospatialystCambodia>`__
+
+

@@ -24,6 +24,8 @@ extensions = [
     'nbsphinx',
 ]
 
+# The master toctree document.
+master_doc = 'index'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -42,6 +44,11 @@ import sphinx_redactor_theme
 html_theme = 'sphinx_redactor_theme'
 html_theme_path = [sphinx_redactor_theme.get_html_theme_path()]
 html_title = "Geospatialyst"
+
+html_context = {
+    # Enable the "Edit in GitHub link within the header of each page.
+    'display_github': False,
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
