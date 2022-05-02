@@ -5,8 +5,6 @@
 **Geospatialyst Documentation**
 ---------------------------------
 
-a
-
 .. toctree::
    :maxdepth: 2
    :hidden:
