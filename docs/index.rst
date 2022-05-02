@@ -1,5 +1,5 @@
 **Geospatialyst Documentation**
----------------------------------
+====================================
 
 .. image:: img/men-vuthy-cover.png
     :width: 100%
