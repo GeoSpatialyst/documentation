@@ -59,7 +59,7 @@ highlight_language = 'python'
 # a list of builtin themes.
 #
 html_theme = 'sphinx_book_theme'
-html_logo = 'img/logo.png'
+html_logo = 'img/logo-img.png'
 html_title = ""
 
 
