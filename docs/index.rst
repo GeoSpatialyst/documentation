@@ -1,4 +1,4 @@
-**Geospatialyst Documentation**
+**Documentation**
 ====================================
 
 .. image:: img/men-vuthy-cover.png
@@ -33,7 +33,8 @@ Content
 
    Content/Lesson/geo-python-course
 
-.. important::
+.. admonition:: Contact Info
+   
    - Email: geospatialyst@gmail.com
    - Facebook: `@GeospatialystCambodia <https://www.facebook.com/GeospatialystCambodia>`__
 

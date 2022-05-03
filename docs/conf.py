@@ -1,3 +1,20 @@
+# Configuration file for the Sphinx documentation builder.
+#
+# This file only contains a selection of the most common options. For a full
+# list see the documentation:
+# https://www.sphinx-doc.org/en/master/usage/configuration.html
+
+# -- Path setup --------------------------------------------------------------
+
+# If extensions (or modules to document with autodoc) are in another directory,
+# add these directories to sys.path here. If the directory is relative to the
+# documentation root, use os.path.abspath to make it absolute, like shown here.
+#
+# import os
+# import sys
+# sys.path.insert(0, os.path.abspath('.'))
+
+
 # -- Project information -----------------------------------------------------
 
 project = 'Geospatialyst'
@@ -24,8 +41,6 @@ extensions = [
     'nbsphinx',
 ]
 
-
-
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -38,16 +53,15 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 pygments_style = 'sphinx'
 highlight_language = 'python'
 
-# The theme to use for HTML and HTML Help pages.  See the documentation for a list of builtin themes.
-import sphinx_redactor_theme
-html_theme = 'sphinx_redactor_theme'
-html_theme_path = [sphinx_redactor_theme.get_html_theme_path()]
-html_title = "Geospatialyst"
+# -- Options for HTML output -------------------------------------------------
 
-html_context = {
-    # Enable the "Edit in GitHub link within the header of each page.
-    'display_github': False,
-}
+# The theme to use for HTML and HTML Help pages.  See the documentation for
+# a list of builtin themes.
+#
+html_theme = 'sphinx_book_theme'
+html_logo = 'img/logo.png'
+html_title = ""
+
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
