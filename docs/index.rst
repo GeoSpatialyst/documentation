@@ -1,13 +1,12 @@
-**Documentation**
+**Geospatialyst - Cambodia**
 ====================================
 
 .. image:: img/men-vuthy-cover.png
     :width: 100%
     :align: center
     
-
-Content
----------------------------------
+Contents
+----------------
 
 .. toctree::
    :maxdepth: 2
@@ -34,7 +33,7 @@ Content
    Content/Lesson/geo-python-course
 
 .. admonition:: Contact Info
-   
+
    - Email: geospatialyst@gmail.com
    - Facebook: `@GeospatialystCambodia <https://www.facebook.com/GeospatialystCambodia>`__
 
