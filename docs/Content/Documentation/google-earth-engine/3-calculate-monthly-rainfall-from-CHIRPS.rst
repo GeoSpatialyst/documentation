@@ -1,5 +1,5 @@
 =======================================================================
-Calculate water turbidity index (WTI) from Sentinel-2
+Calculate monthly mean precipitation from CHIRPS Daily dataset
 =======================================================================
 *Written by Men Vuthy, 2022*
 
@@ -8,9 +8,10 @@ Calculate water turbidity index (WTI) from Sentinel-2
 Objective
 ---------------
 
-* Calculate and visualize water turbidity index using Sentinel-2 satellite images.
+* Vizualize precipitation image of a given date in Cambodia.
+* Calculate monthly mean precipitation of Cambodia.
 
-Water Turbidity Index
+Dataset
 ---------------
 
 Climate Hazards Group InfraRed Precipitation with Station data (`CHIRPS <https://developers.google.com/earth-engine/datasets/catalog/UCSB-CHG_CHIRPS_DAILY>`__) is a 30+ year quasi-global rainfall dataset. CHIRPS incorporates 0.05° resolution satellite imagery with in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring.

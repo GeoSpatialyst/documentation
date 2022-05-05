@@ -1,5 +1,5 @@
 =======================================================================
-Calculate monthly mean precipitation from CHIRPS Daily dataset
+Calculate water turbidity index (WTI) from Sentinel-2
 =======================================================================
 *Written by Men Vuthy, 2022*
 
@@ -8,15 +8,17 @@ Calculate monthly mean precipitation from CHIRPS Daily dataset
 Objective
 ---------------
 
-* Vizualize precipitation image of a given date in Cambodia.
-* Calculate monthly mean precipitation of Cambodia.
+* Vizualize SWIR composite image of Chaktomuk river in 2021 in Phnom Penh.
+* Calculate water turbidity index.
+* Export WTI image.
 
 Dataset
 ---------------
 
-Climate Hazards Group InfraRed Precipitation with Station data (`CHIRPS <https://developers.google.com/earth-engine/datasets/catalog/UCSB-CHG_CHIRPS_DAILY>`__) is a 30+ year quasi-global rainfall dataset. CHIRPS incorporates 0.05° resolution satellite imagery with in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring.
+`Sentinel-2 <https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR#description>`__ is a wide-swath, high-resolution, multi-spectral imaging mission supporting Copernicus Land Monitoring studies, including the monitoring of vegetation, soil and water cover, as well as observation of inland waterways and coastal areas. The assets contain 12 UINT16 spectral bands representing SR scaled by 10000 (unlike in L1 data, there is no B10).
 
-.. figure:: img/CHIRPS.png
+
+.. figure:: img/Sentinel-2.png
     :width: 700px
     :align: center
     :alt: ERA5 Climate Reanalysis
@@ -26,144 +28,116 @@ Code
 
 **1. Visualize dataset**
 
-CHIRPS Daily dataset can be visualized using the code snippet below:
+Sentinel-2 image can be visualized using the code snippet below:
 
 .. code-block:: JavaScript
     
-    // Import CHIRPS dataset and filter to 01-Sep-2020
-    var dataset = ee.ImageCollection('UCSB-CHG/CHIRPS/DAILY')
-                    .filter(ee.Filter.date('2020-09-01', '2020-09-02'));
+    // Set the area of interest 
+    var roi = ee.Geometry.Polygon([[[104.90218375201758, 11.577174953667186],
+                            [104.90218375201758, 11.533783997142853],
+                            [104.99350760455664, 11.533783997142853],
+                            [104.99350760455664, 11.577174953667186]]], null, false);
                   
-    // Select bands
-    var precipitation = dataset.select('precipitation');
+    // Create function to mask cloud in Sentinel-2 images
+    function maskS2clouds(image) {
+    var qa = image.select('QA60');
 
-    // Create visualization palette
-    var precipitationVis = {
-        min: 1.0,
-        max: 17.0,
-        palette: ['001137', '0aab1e', 'e7eb05', 'ff4a2d', 'e90000'],
+    // Bits 10 and 11 are clouds and cirrus, respectively.
+    var cloudBitMask = 1 << 10;
+    var cirrusBitMask = 1 << 11;
+
+    // Both flags should be set to zero, indicating clear conditions.
+    var mask = qa.bitwiseAnd(cloudBitMask).eq(0)
+        .and(qa.bitwiseAnd(cirrusBitMask).eq(0));
+
+    return image.updateMask(mask).divide(10000);
+    }
+
+    // Load Sentinel-2 images
+    var dataset = ee.ImageCollection('COPERNICUS/S2_SR')
+                    .filterDate('2020-01-01', '2020-01-30')
+                    // Pre-filter to get less cloudy granules.
+                    .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE',10))
+                    .map(maskS2clouds);
+
+    // Clip images to area boundary
+    var roi_image = dataset.mean().clip(roi)
+
+    // Set visualization
+    var visualization = {
+    min: 0.0,
+    max: 0.3,
+    bands: ['B12', 'B8', 'B4'],
     };
 
     // Set center for zooming
-    Map.setCenter(104.405, 13.158, 6);
+    Map.centerObject(roi, 14)
 
     // Add layer to map
-    Map.addLayer(precipitation, precipitationVis, 'Precipitation');
+    Map.addLayer(roi_image, visualization, 'SWIR_image');
 
 
-.. figure:: img/CHIRPS-image.png
-    :width: 1200px
+.. figure:: img/SWIR-image-chaktomuk-river.png
+    :width: 100%
     :align: center
 
-**2. Visualize precipitation in Cambodia**
+**2. Calculate water turbidity index.**
 
-The feature boundary of Cambodia is based on the international boundary dataset provided by The United States Office of the Geographer. The boundary data is available in GEE and known as `LSIB 2017: Large Scale International Boundary Polygons <https://developers.google.com/earth-engine/datasets/catalog/USDOS_LSIB_SIMPLE_2017#description>`__. The country name code can be referred to `FIPS country codes <https://en.wikipedia.org/wiki/List_of_FIPS_country_codes>`__. With this feature, we can clip the global rainfall image to the shape of our region of interest.
+Water turbidity index (WTI) based on multispectral images was developed and tested at Kushiro Mire, eastern Hokkaido, Japan [1]. The WTI was adopted by Gaëtan Lefebvre et al. 2019 [2] and the formula was derived as follows:
+
+.. math::
+
+   WTI = 0.91 * Red + 0.43 * NIR
+
+Here, I applied this formula in GEE to calculate water turbidity index using Sentinel-2 images. 
 
 .. code-block:: JavaScript
 
-    // Load country features from Large Scale International Boundary (LSIB) dataset.
-    var countries = ee.FeatureCollection('USDOS/LSIB_SIMPLE/2017');
+    // Create fuction to calculate water turbidity index
+    var addWTI = function wti(image){
+    var wt = image.expression('0.91 * RED + 0.43 * NIR', {
+        'RED': image.select('B4'),
+        'NIR':image.select('B8')}).rename('WTI');
+    
+    return image.addBands(wt);
+    };
 
-    // Filter boundary to Cambodia with the code name 'CB'
-    var roi = countries.filter(ee.Filter.eq('country_co', 'CB'));
+    // Calculate water turbidity index
+    var turbidity = addWTI(roi_image).select('WTI');
 
-    // Filter images to 01 Sep 2020 and clip it
-    var rainfall = dataset.filter(ee.Filter.calendarRange(2020, 2020, 'year'))
-                        .filter(ee.Filter.calendarRange(9, 9, 'month'))
-                        .sum()
-                        .clip(roi);
+    // Set visualization
+    var visualization_wti = {
+    min: 0.0,
+    max: 0.2,
+    palette: ['green','white', 'blue'],
+    };
 
     // Add layer to map
-    Map.addLayer(rainfall, precipitationVis, 'Rainfall');
+    Map.addLayer(turbidity, visualization_wti, 'Turbidity');
 
-    // Add layer to map
-    Map.addLayer(temp, temperatureVis_cambo, 'Temperature');
-
-.. figure:: img/rainfall-cambodia.png
+.. figure:: img/wti-image.png
     :width: 1200px
     :align: center
 
-**3. Extract all precipitation images within given year**
+**3. Export WTI image**
 
-To calculate mean precipitation of each month, we must set a target year and then extract all the images from image collection that correspond to the given year. 
+By running below snippet, the Tasks tab will appear a Run button. After clicking that button, the turbidity image of Chaktomuk river will be stored in your google drive.
 
 .. code-block:: JavaScript
 
+    // Export image to google drive
+    Export.image.toDrive({
+    image: turbidity,
+    description: 'Turbidity',
+    fileFormat: 'GeoTIFF',
+    scale: 10,
+    region: roi
+    });
 
-    // set start year and end year
-    var startyear = 2019;
-    var endyear = 2021;
- 
-    // make a list with years
-    var years = ee.List.sequence(startyear, endyear);
-
-    // make a list with months
-    var months = ee.List.sequence(1, 12);
-
-    // Extract all rainfall images within given year
-    var monthlyPrecip =  ee.ImageCollection.fromImages(
-     years.map(function (y) {
-        return months.map(function(m) {
-        var w = dataset.filter(ee.Filter.calendarRange(y, y, 'year'))
-                        .filter(ee.Filter.calendarRange(m, m, 'month'))
-                        .sum();
-        return w.set('year', y)
-                .set('month', m)
-                .set('system:time_start', ee.Date.fromYMD(y, m, 1));
-        });
-    }).flatten()
-    );
-
-    print(monthlyPrecip)
-
-.. figure:: img/list_img_prec.png
-    :width: 1200px
-    :align: center
-
-**4. Calculate monthly mean precipitation of Cambodia**
-
-After extracting images of given year, we can see that there are in total of 36 images which respond to 36 months or 3 years. In each image, there are a wide range of precipitation value in mm. Therefore, we need to calculate the mean precipitation of each image to get 36 mean precipitation value. To do so, we can use a function call ``ee.Reducer.mean()`` as follows:
-
-.. code-block:: JavaScript
-
-    // Import CHIRPS dataset and filter to 01-Sep-2020
-    var dataset = ee.ImageCollection('UCSB-CHG/CHIRPS/DAILY');
-
-    // Select bands
-    var precipitation = dataset.select('precipitation');
-
-    // Calculate mean precipitation and create a bar chart.
-    var chartMonthly = ui.Chart.image.seriesByRegion({
-        imageCollection: monthlyPrecip,
-        regions: roi,
-        reducer: ee.Reducer.mean(),
-        band: 'precipitation',
-        scale: 5566,
-        xProperty: 'system:time_start',
-        seriesProperty: 'precipitation',
-    })
-    .setChartType('ColumnChart')
-    .setOptions({ title: 'Monthly temperature - Cambodia - 2019~2020',
-                  hAxis: {title: 'Month', titleTextStyle: {italic: true, bold: false}},
-                  vAxis: {title: 'Precipitation (mm)', titleTextStyle: {italic: true, bold: false}},
-                  colors: ['0f8755']
-                });
- 
-    print(chartMonthly);
-
-
-.. figure:: img/monthly-precp-chart.png
-    :width: 1200px
-    :align: center
-
-
-Finally, we can see how to calculate and download monthly mean precipitation from  CHIRPS Daily dataset in Google Earth Engine.
 
 ----------
 
 **Reference**
 
-* CHIRPS Daily: https://developers.google.com/earth-engine/datasets/catalog/UCSB-CHG_CHIRPS_DAILY
-* LSIB 2017: https://developers.google.com/earth-engine/datasets/catalog/USDOS_LSIB_SIMPLE_2017#description
-* ui.Chart.image.seriesByRegion: https://developers.google.com/earth-engine/apidocs/ui-chart-image-seriesbyregion
-* ee.Reducer.mean : https://developers.google.com/earth-engine/apidocs/ee-reducer-mean
+* [1] Kameyama, S., Yamagata, Y., Nakamura, F., & Kaneko, M. (2001). Development of WTI and turbidity estimation model using SMA—application to Kushiro Mire, eastern Hokkaido, Japan. Remote Sensing of Environment, 77(1), 1-9.
+* [2] Lefebvre, G., Davranche, A., Willm, L., Campagna, J., Redmond, L., Merle, C., ... & Poulin, B. (2019). Introducing WIW for detecting the presence of water in wetlands with landsat and sentinel satellites. Remote sensing, 11(19), 2210.
