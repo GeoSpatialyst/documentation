@@ -1,10 +1,27 @@
-**Geospatialyst - Cambodia**
-====================================
-
 .. image:: img/men-vuthy-cover.png
     :width: 100%
     :align: center
-    
+
+*Welcome to Geospatialyst - Cambodia!*
+=====================================================
+
+Geospatialyst is a GIS and remote sensing specialist team with the mission of providing solutions to all technical issues in geographic information and geospatial data analysis for atmospheric, ocean, and land studies at various spatial and temporal scales. Besides seeking technical solution, our main goal is also to share the knowledge, information, opportunity in this field and help people getting started with their journey for doing geo data analysis more efficiently through this documentation website and our facebook page. 
+
+This website contains three main sections: Projects, Documentations, and Lessons.
+
+
+.. admonition:: Projects
+   
+   This section describes the technical solution to solve various topics including land cover classification, flood water surface extraction, forest cover, etc. 
+
+.. admonition:: Documentations
+
+   This section describes the programming technics in different applications including LiDAR, geo-python, Google Earth Engine, machine learning and deep learning. 
+
+.. admonition:: Lessons
+
+   This section provides full lessons to understand the basic concepts of programming and scientific data analysis using programming language, mainly Python. 
+
 Contents
 ----------------
 
