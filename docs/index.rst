@@ -20,7 +20,7 @@ This website contains three main sections: Projects, Documentations, and Lessons
 
 .. admonition:: Lessons
 
-   This section provides full lessons to understand the basic concepts of programming and scientific data analysis using programming language, mainly Python. 
+   This section provides full lessons to understand the basic concepts of programming and scientific data analysis using Python programming language. 
 
 Contents
 ----------------
