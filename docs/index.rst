@@ -52,6 +52,6 @@ Contents
 .. admonition:: Contact Info
 
    - Email: geospatialyst@gmail.com
-   - Facebook: `@GeospatialystCambodia <https://www.facebook.com/GeospatialystCambodia>`__
+   - Facebook page: `@GeospatialystCambodia <https://www.facebook.com/GeospatialystCambodia>`__
 
 
