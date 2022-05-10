@@ -5,10 +5,14 @@
 *Welcome to Geospatialyst - Cambodia!*
 =====================================================
 
+.. image:: img/image-1.png
+   :align: right
+   :height: 200
+   :width: 300
+   
 Geospatialyst is a GIS and remote sensing specialist team with the mission of providing solutions to all technical issues in geographic information and geospatial data analysis for atmospheric, ocean, and land studies at various spatial and temporal scales. Besides seeking technical solution, our main goal is also to share the knowledge, information, opportunity in this field and help people getting started with their journey for doing geo data analysis more efficiently through this documentation website and our facebook page. 
 
 This website contains three main sections: Projects, Documentations, and Lessons.
-
 
 .. admonition:: Projects
    
@@ -21,6 +25,7 @@ This website contains three main sections: Projects, Documentations, and Lessons
 .. admonition:: Lessons
 
    This section provides full lessons to understand the basic concepts of programming and scientific data analysis using Python programming language. 
+
 
 Contents
 ----------------
