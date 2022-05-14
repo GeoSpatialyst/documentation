@@ -282,7 +282,7 @@ The script to create an app to view flood frequency map is detailed as follows:
 
 **2. Result**
 
-By running the script above in `code editor <code.earthengine.google.com>`__ of GEE, the interface will appear as shown in below image. Then, viewers can input the flood event period to visualize the flood frequency map. 
+By running the script above in `code editor <https://code.earthengine.google.com>`__ of GEE, the interface will appear as shown in below image. Then, viewers can input the flood event period to visualize the flood frequency map. 
 
 .. figure:: images/flood-interface.png
     :width: 100%
