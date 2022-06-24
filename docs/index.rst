@@ -1,9 +1,10 @@
+**Who we are?**
+=====================================================
+
 .. image:: img/men-vuthy-cover.png
     :width: 100%
     :align: center
 
-*Welcome to Geospatialyst - Cambodia!*
-=====================================================
 
 .. image:: img/image-1.png
    :align: right
