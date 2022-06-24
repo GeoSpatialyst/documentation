@@ -1,10 +1,16 @@
-**Who we are?**
+**Welcome to our documentation**
 =====================================================
 
 .. image:: img/men-vuthy-cover.png
     :width: 100%
     :align: center
 
+----------------
+
+
+   
+About us
+----------------
 
 .. image:: img/image-1.png
    :align: right
